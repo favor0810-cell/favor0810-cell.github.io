@@ -255,8 +255,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const finalScoreEl = document.getElementById("finalScore");
 
   const moleImages = [
-    "icon2/누끼율1.jpg",
-    "icon2/누끼율2.jpg"
+    "icon2/1.jpg",
+    "icon2/2.jpg"
   ];
 
   let score = 0;
