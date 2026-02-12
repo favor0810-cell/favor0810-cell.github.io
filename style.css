@@ -1,0 +1,1047 @@
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+
+  background-image: url("images/bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#iconScreen {
+  position: relative;
+  min-width: 1200px;
+  min-height: 800px;
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  color: transparent;
+  -webkit-text-stroke: 1px #0033ff;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%) scaleY(1.2);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 50px;
+  font-weight: -100;
+  letter-spacing: -0.03em;
+  z-index: 6;
+  user-select: none;
+}
+
+.icon-1 {
+  position: absolute;
+  width: 450px;
+  height: auto;
+
+  top: 30px;
+  left: 100px;
+
+  transform-origin: center center;
+  cursor: pointer;
+}
+
+/* 찰칵율*/
+.icon-2 {
+  position: absolute;
+  top: 350px;
+  left: 250px;
+  width: 450px;
+  height: auto;
+  z-index: 1;
+  cursor: pointer;
+}
+
+/* 맛나율*/
+.icon-3 {
+  position: absolute;
+  top: 50px;
+  left: 430px;
+  width: 350px;
+  height: auto;
+  z-index: 10;
+  cursor: pointer;
+}
+
+/* 우유율*/
+.icon-4 {
+  position: absolute;
+  top: 0px;
+  left: 650px;
+  width: 450px;
+  height: auto;
+  z-index: 1;
+  cursor: pointer;
+}
+
+/* 마조리카*/
+.icon-5 {
+  position: absolute;
+  top: 400px;
+  left: 700px;
+  width: 400px;
+  height: auto;
+  z-index: 1;
+  cursor: pointer;
+}
+
+/* 청소하는애*/
+.icon-6 {
+  position: absolute;
+  top: 100px;
+  left: 180px;
+  width: 130px;
+  height: auto;
+  z-index: 20;
+  cursor: pointer;
+}
+/* 안경만두 검정*/
+.icon-7 {
+  position: absolute;
+  top: 80px;
+  left: 680px;
+  width: 150px;
+  height: auto;
+  z-index: 20;
+  cursor: pointer;
+}
+/* 안경만두 빨강*/
+.icon-8 {
+  position: absolute;
+  top: 330px;
+  left: 420px;
+  width: 90px;
+  height: auto;
+  z-index: 20;
+  cursor: pointer;
+}
+/*사과*/
+.icon-9 {
+  position: absolute;
+  top: 230px;
+  left: 980px;
+  width: 100px;
+  height: auto;
+  z-index: 1;
+  cursor: pointer;
+}
+/*누워있는애*/
+.icon-10 {
+  position: absolute;
+  top: 450px;
+  left: 620px;
+  width: 100px;
+  height: auto;
+  z-index: 1;
+  cursor: pointer;
+}
+
+/* 아이콘 1,2,3,4만 효과 */
+.icon-1, .icon-2, .icon-3, .icon-4 {
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+/* 마우스 올렸을 때 */
+.icon-1:hover, .icon-2:hover, .icon-3:hover, .icon-4:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+/* 클릭했을 때 */
+.icon-1:active, .icon-2:active, .icon-3:active, .icon-4:active {
+  transform: scale(0.95);
+  filter: brightness(0.9);
+}
+
+
+#window-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#window-layer.show {
+  opacity: 1;
+}
+
+.window {
+  position: absolute;
+  width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+  overflow: hidden;
+  pointer-events: auto;
+
+  /* 기본 상태: 살짝 아래에 있고 작음 */
+  opacity: 0;
+  transform: scale(0.8);
+  transform-origin: center center;   /* 🔥 가운데 기준 */
+  transition: 
+    opacity 0.25s ease,
+    transform 0.25s ease;}
+
+.popup-image {
+  width: 100%;
+  display: block;
+
+  transform: scale(0.85);      /* 🔥 작게 시작 */
+  opacity: 0;
+
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease;
+}
+
+
+/* 나타날 때 */
+.window.show {
+  opacity: 1;
+  transform: scale(1);
+
+}
+
+/* 사라질 때 */
+.window.hiding {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.8);
+  transition: 
+    opacity 0.4s ease,
+    transform 0.4s cubic-bezier(0.6, 0, 0.8, 0.4);
+}
+
+.window.show .popup-image {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.window-header {
+  height: 20px;
+  padding: 0 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: rgba(245, 245, 247, 0.85); /* mac 느낌 */
+  backdrop-filter: blur(10px);
+
+
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+
+  font-family: -apple-system, BlinkMacSystemFont,
+               "SF Pro Text", "SF Pro Display",
+               Helvetica, Arial, sans-serif;
+
+  font-size: 9px;
+  color: #1d1d1f;
+
+  position: relative;
+
+  /* 4. 혹시 모를 최소 높이 제한 해제 */
+  min-height: 0;
+}
+
+
+.window-header span {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  opacity: 0.9;
+}
+
+.window img {
+  width: 100%;
+  display: block;
+}
+
+.close-all {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: linear-gradient(
+    180deg,
+    #f6ff4f 0%,
+    #d6e600 100%
+  );
+
+  border: none;
+  border-radius: 999px;
+
+  padding: 10px 20px;
+
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+               Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+
+  color: #000;
+  cursor: pointer;
+
+  box-shadow:
+    0 6px 16px rgba(214, 230, 0, 0.55),
+    inset 0 -2px 0 rgba(0,0,0,0.15);
+
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  z-index: 30;
+}  /* ✅ 이 중괄호가 빠져 있었음 */
+
+.window-close-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+
+  background: radial-gradient(
+    circle at 30% 30%,
+    #ff9a9a 0%,
+    #ff5f57 40%,
+    #d70015 100%
+  );
+
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.6),
+    inset 0 -1px 1px rgba(0,0,0,0.25),
+    0 0 0 0.5px rgba(0,0,0,0.1);
+}
+
+
+/* X 표시 */
+.window-close-btn::before,
+.window-close-btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 1.4px;
+  background: rgba(0,0,0,0.65);
+  opacity: 1; /* 기본 숨김 */
+}
+
+.window-close-btn::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.window-close-btn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+
+
+/* 보여질 때 */
+.close-all.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* hover */
+.close-all:hover {
+  transform: translateX(-50%) scale(1.05);
+  box-shadow:
+    0 10px 24px rgba(214, 230, 0, 0.75),
+    inset 0 -2px 0 rgba(0,0,0,0.2);
+}
+
+/* 눌렀을 때 */
+.close-all:active {
+  transform: translateX(-50%) scale(0.97);
+}
+.close-btn {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      #ffb3b3 0%,
+      #ff4d4d 35%,
+      #cc0000 70%,
+      #990000 100%
+    );
+
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 10px;
+  font-weight: 700;
+  color: #000000;
+
+  box-shadow:
+    0 3px 6px rgba(255, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255,255,255,0.5),
+    inset 0 -2px 2px rgba(0,0,0,0.35);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+/* =====================
+   게임 영역 스타일
+===================== */
+
+#moleGame {
+  background-color: rgba(0,0,0,0.8);
+  display: none;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* 게임 닫기 버튼 - 우측 상단 X */
+.close-game-btn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border: none;
+  font-size: 50px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 100000 !important;
+  font-weight: 100;
+  line-height: 1;
+  padding: 0;
+}
+
+#gameIntro {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: transparent;  /* 흰색 박스 제거 */
+  padding: 30px 40px;
+}
+
+#gameIntro h2 {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #333;
+  font-family: 'Press Start 2P', cursive;
+}
+
+#gameIntro p {
+  font-size: 10px;
+  margin-bottom: 20px;
+  color: #666;
+  font-family: 'Press Start 2P', cursive;
+}
+
+#startBtn {
+  width: 500px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: block;
+  margin: 0 auto;
+}
+
+#startBtn:hover {
+  transform: scale(1.05);
+  background: transparent; /* 이거 */
+}
+
+#gameScreen {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+}
+
+#gameScreen p {
+  text-align: center;
+  font-size: 16px;
+  color: white;  /* 어두운 배경에 흰색 텍스트 */
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* 게임 그리드 */
+.game {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+/* 구멍 - 이제 투명 */
+.hole {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  margin: 0 auto;
+}
+
+/* 얼굴 누끼 - 페이드 효과만 */
+.mole {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  opacity: 0;  /* 투명 */
+  transform: scale(0.5);  /* 작게 시작 */
+  transition: all 0.4s ease-in-out;
+  object-fit: cover;  /* contain → cover로 변경 */
+}
+
+/* 얼굴 나타남 */
+.mole.up {
+  opacity: 1;  /* 불투명 */
+  transform: scale(1);  /* 원래 크기 */
+}
+
+/* 클릭 효과 */
+.mole:active {
+  transform: scale(0.9);
+  transition: transform 0.1s;
+}
+
+/* 점수 스타일 */
+#score {
+  color: #cf1d70; 
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* =====================
+   게임 오버 화면
+===================== */
+
+#gameOver {
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  background: rgba(0,0,0,0.45);
+
+  display: none;
+  position: fixed; /* 전체 화면 고정 */
+  inset: 0;
+  z-index: 9999; /* 가장 앞으로 가져오기 */
+
+}
+
+.game-over-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+#gameOver.show {
+  display: flex;
+}
+
+.game-over-img {
+  width: 260px;
+}
+
+.score-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.score-label {
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: #ffb3e6;
+  opacity: 0.9;
+}
+
+.score-number {
+  font-size: 64px;
+  font-weight: 900;
+  color: #ff66cc;
+
+  text-shadow:
+    0 0 6px rgba(255, 120, 200, 0.9),
+    0 0 14px rgba(255, 120, 200, 0.7),
+    2px 2px 0 #c2187a;
+}
+
+
+.restart-btn {
+  width: 180px;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.restart-btn:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.restart-btn:active {
+  transform: scale(0.95);
+}
+
+#simpleViewer {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 999999;
+}
+
+#simpleViewer.show {
+  display: flex !important;
+}
+
+/* 이미지 크기 조절: 화면의 80%를 넘지 않게 */
+#mediaContainer img, #mediaContainer video {
+  max-width: 80vw;
+  max-height: 80vh;
+  box-shadow: 0 0 30px rgb(153, 223, 255);
+}
+
+/* 화살표 스타일 */
+.viewer-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+  font-weight: 100;      /* 두께는 가장 얇게 */
+  font-family: serif;    /* 얇은 선을 위해 명조계열 폰트 사용 */
+  color: white;
+  cursor: pointer;
+  padding: 20px;
+  user-select: none;
+  transition: 0.3s;
+  z-index: 1000001;
+}
+
+.viewer-arrow:hover {
+  color: #ff66cc;
+  transform: translateY(-50%) scale(1.2);
+}
+
+.left { left: 30px; }
+.right { right: 30px; }
+
+.viewer-info {
+  position: absolute;
+  bottom: 30px;
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+}
+
+/* 2. 아이콘1 확대 모달: 배경은 부드럽게, 사진은 싹 퍼지게 */
+#imageModal {
+  position: fixed !important;
+  inset: 0 !important;
+  display: none; /* 기본은 숨김 */
+  align-items: center;
+  justify-content: center;
+  z-index: 999999 !important;
+  
+  /* 배경 설정 */
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(10px);
+  pointer-events: none; /* 평소엔 클릭 방지 */
+  transition: 
+    opacity 0.3s ease;
+  opacity: 0;
+}
+
+/* 모달이 열릴 때 (.show) */
+#imageModal.show {
+  display: flex !important;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 3. ✅ 중요: 기존에 검정색으로 덮고 있던 배경 레이어를 투명하게 제거 */
+.image-modal-bg {
+  position: absolute !important;
+  inset: 0 !important;
+  background: transparent !important; /* 검정색(rgba 0,0,0,0.8) 강제 제거 */
+}
+
+/* 2. 닫기 버튼 수정: 위치 값을 명확히 지정 */
+.image-modal-close {
+  position: absolute !important; /* 부모인 .image-modal-content 기준으로 배치 */
+  top: 10px;    /* 위에서 10px 내림 */
+  right: 10px;  /* 오른쪽에서 10px 안으로 */
+  background: rgba(0, 0, 0, 0.5) !important; /* 버튼이 잘 보이도록 배경 추가 가능 */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none !important;
+  font-size: 30px !important;
+  color: white !important;
+  cursor: pointer;
+  z-index: 1000002 !important;
+}
+
+/* 확대된 사진 스타일 - 흰 박스 제거 및 부드러운 순환 광채 */
+#imageModalImg {
+  max-width: 75vw !important; 
+  max-height: 75vh !important;
+  object-fit: contain;
+  
+  /* ✅ 배경색을 투명으로 설정해서 흰 박스 제거 */
+  background-color: transparent !important; 
+  
+  /* ✅ 끊김 없는 무지개 광채 애니메이션 */
+  animation: rainbowGlow 6s linear infinite !important;
+  
+  /* 뜰 때 부드럽게 커지는 효과 추가 */
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 색상이 끊김 없이 계속 이어지는 애니메이션 정의 */
+@keyframes rainbowGlow {
+  0%   { box-shadow: 0 0 70px rgb(63, 207, 255); }   /* 연하늘 */
+  25%  { box-shadow: 0 0 80px rgb(255, 102, 204); }  /* 핑크 */
+  50%  { box-shadow: 0 0 70px rgb(255, 230, 100); }  /* 레몬 노랑 */
+  75%  { box-shadow: 0 0 80px rgb(100, 255, 200); }  /* 민트 */
+  100% { box-shadow: 0 0 70px rgb(63, 207, 255); }   /* 다시 연하늘 (0%와 같아야 함) */
+}
+
+/* 모달 안의 사진이 보일 때 */
+#imageModal.show #imageModalImg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 6. 닫기 버튼 */
+.image-modal-close {
+  position: absolute !important;
+  top: -60px;
+  right: 0;
+  background: none !important;
+  border: none !important;
+  font-size: 50px !important;
+  color: white !important;
+  font-weight: 100 !important;
+  cursor: pointer;
+}
+
+/*포토부스*/
+
+/* 포토부스 헤더 (404 창과 동일한 스타일) */
+.photo-booth-header {
+  height: 32px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(245, 245, 247, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  color: #1d1d1f;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* 포토부스 닫기 버튼 (더 크게) */
+.photo-booth-close {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: radial-gradient(
+    circle at 30% 30%,
+    #ff9a9a 0%,
+    #ff5f57 40%,
+    #d70015 100%
+  );
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.6),
+    inset 0 -1px 1px rgba(0,0,0,0.25),
+    0 0 0 0.5px rgba(0,0,0,0.1);
+}
+
+/* X 표시 */
+.photo-booth-close::before,
+.photo-booth-close::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 2px;
+  background: rgba(0,0,0,0.65);
+  opacity: 1;
+}
+
+.photo-booth-close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.photo-booth-close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* 포토부스 창 위치 */
+#photoBooth {
+  position: fixed;
+  inset: 0;
+
+  display: none;              /* 기본은 숨김 */
+  align-items: center;        /* 세로 중앙 */
+  justify-content: center;    /* 가로 중앙 */
+
+  background: rgba(0,0,0,0.8);
+  z-index: 999999;
+}
+
+
+/* 포토부스 실제 창 */
+.photo-booth-window {
+  width: 700px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+
+  position: relative;
+  top: 0;
+}
+
+#photoBooth.show {
+  display: flex;
+}
+
+.mac-content {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: black;
+  overflow: hidden;
+}
+
+/* 카메라 */
+#webcam {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* 꽉 채움 */
+  z-index: 1;
+  transform: scaleX(-1);
+}
+
+/* 스티커 레이어 */
+.sticker-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* 공통 스타일 */
+.sticker { position: absolute; z-index: 100; pointer-events: none; }
+#webcam, .sticker-layer { transform: scaleX(-1); } /* 거울 모드 */
+
+/* ===================== 세트 1 위치 (예: 머리핀 + 양볼) ===================== */
+.set1 .s1 { width: 100%; height: 100%; top: 0%; left: 0%; object-fit: cover;}
+.set1 .s2 { width: 230px; top: 30%; left: 15%; transform: scaleX(-1); }
+.set1 .s3 { width: 300px; top: 5%; right: 46%; transform: scaleX(-1); }
+.set1 .s4 { width: 0px; bottom: 5%; left: 40%; transform: scaleX(-1); }
+
+/* ===================== 세트 2 위치 (예: 안경 + 목걸이 + 프레임) ===================== */
+.set2 .s1 { width: 200px; top: 30%; left: 50%; transform: translateX(-50%) scaleX(-1); } 
+.set2 .s2 { width: 200px; bottom: -1%; left: 11%; }
+.set2 .s3 { width: 100%; height: 100%; top: 0%; left: 0%; object-fit: cover;}
+.set2 .s4 { width: 200px; bottom: -1%; right: 11%; transform: scaleX(-1); }
+
+/* ===================== 세트 3 위치 (내 맘대로 배치) ===================== */
+.set3 .s1 { width: 0px; top: 35%; left: 55%; transform: scaleX(-1);}
+.set3 .s2 { width: 300px; top: 35%; right: 45%; transform: scaleX(-1);}
+.set3 .s3 { width: 100%; height: 100%; top: 0%; left: 0%; object-fit: cover;}
+.set3 .s4 { width: 60px; top: 20%; left: 75%; transform: scaleX(-1); }
+
+/* 하단 전체 컨트롤 */
+.photo-controls {
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: auto;
+  z-index: 50; /* 🔥 이 줄 추가 */
+
+}
+
+/* 프레임 버튼 묶음 (왼쪽) */
+.frame-dots {
+  position: absolute;
+  left: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+/* 프레임 동그라미 */
+.frame-dots .dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+
+  background: rgba(200,200,200,0.6);
+  color: #444;
+  cursor: pointer;
+
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+  transition: all 0.2s;
+}
+
+/* 선택된 프레임 */
+.frame-dots .dot.active {
+  background: #ffe94f;
+  color: #000;
+  box-shadow: 0 0 8px rgba(255,233,79,0.9);
+}
+
+/* 촬영 버튼 */
+.shutter-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  border: none;
+
+  background: radial-gradient(circle at 30% 300%, #fff49e, #ffe94f);
+  font-size: 25px;
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 18px rgba(0,0,0,0.4),
+    inset 0 -3px 6px rgba(0,0,0,0.3);
+
+  transition: transform 0.15s ease;
+}
+
+.shutter-btn:active {
+  transform: scale(0.9);
+}
+
+/* 사진 미리보기 모달 */
+#photoPreview {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000000;
+}
+
+.preview-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.preview-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  z-index: 10001;
+}
+
+.preview-close {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: none;
+  border: none;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  font-weight: 100;
+  transition: transform 0.2s;
+}
+
+.preview-close:hover {
+  transform: scale(1.1);
+}
+
+#previewImg {
+  max-width: 80vw;
+  max-height: 70vh;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.save-btn {
+  padding: 15px 40px;
+  font-size: 18px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  font-weight: 600;
+  background: linear-gradient(135deg,  #fff49e, #ffe94f 100%);
+  color: rgb(63, 63, 63);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s;
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(102, 126, 234, 0.6);
+}
+
+.save-btn:active {
+  transform: translateY(0);
+}

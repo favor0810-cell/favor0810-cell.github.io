@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HYEEE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="iconScreen">
+  <img src="images/뽀뽀율.png" class="icon icon-1" onclick="playClickSound(); open404()">
+  <img src="images/찰칵율.png" class="icon icon-2" onclick="playClickSound(); openMoleGame()">
+  <img src="images/맛나율.png" class="icon icon-3" onclick="playClickSound(); openSimpleViewer()">
+  <img src="images/우유율.png" class="icon icon-4" onclick="playClickSound(); openPhotoBooth()">
+  <img src="images/마조리카.png" class="icon icon-5">
+  <img src="images/청소하는애.png" class="icon icon-6">
+  <img src="images/안경만두검정.png" class="icon icon-7">
+  <img src="images/안경만두빨강.png" class="icon icon-8">
+  <img src="images/사과.png" class="icon icon-9">
+  <img src="images/누워있는애.png" class="icon icon-10">
+</div>
+
+<div id="window-layer"></div>
+<button class="close-all" id="closeAllBtn">Close Everything</button>
+
+<div id="moleGame" style="display:none;">
+  <button class="close-game-btn" id="closeGame">✕</button>
+  <div id="gameIntro">
+    <img src="icon2/GameSrt.jpg" id="startBtn" alt="Start">
+  </div>
+  <div id="gameScreen" style="display:none;">
+    <p>score <span id="score">0</span></p>
+    <div class="game">
+      <div class="hole"><img class="mole" src=""></div>
+      <div class="hole"><img class="mole" src=""></div>
+      <div class="hole"><img class="mole" src=""></div>
+      <div class="hole"><img class="mole" src=""></div>
+      <div class="hole"><img class="mole" src=""></div>
+      <div class="hole"><img class="mole" src=""></div>
+    </div>
+  </div>
+  <div id="gameOver" style="display:none;">
+    <div class="game-over-box">
+      <img src="icon2/game-over.jpg" class="game-over-img" alt="game over">
+      <div class="score-box">
+        <span id="finalScore" class="score-number">0</span>
+      </div>
+      <img src="icon2/restart.jpg" id="restartBtn" class="restart-btn" alt="restart">
+    </div>
+  </div>
+</div>
+
+<div id="simpleViewer">
+  <div id="mediaContainer">
+    <img id="viewerImg" src="icon3/1.jpg" alt="Photo" />
+  </div>
+
+  <div class="viewer-arrow left" onclick="changeMedia(-1)">&#60;</div>
+  <div class="viewer-arrow right" onclick="changeMedia(1)">&#62;</div>
+</div>
+
+<div id="photoBooth" style="display:none;">
+  <div class="photo-booth-window">
+    <div class="photo-booth-header">
+      <span>Photo Booth</span>
+      <button class="photo-booth-close" onclick="closePhotoBooth()"></button>
+    </div>
+
+    <div class="mac-content" style="position: relative; background: #000; height: 400px;">
+      <video id="webcam" autoplay playsinline></video>
+      <div class="sticker-layer set1">
+        <img src="icon4/1_1.png" id="sticker1" class="sticker s1">
+        <img src="icon4/1_2.png" id="sticker2" class="sticker s2">
+        <img src="icon4/1_3.png" id="sticker3" class="sticker s3">
+        <img src="icon4/1_4.png" id="sticker4" class="sticker s4">
+      </div>
+    </div>
+
+  <!-- 하단 컨트롤 바 -->
+  <div class="photo-controls">
+
+    <!-- 프레임 선택 -->
+    <div class="frame-dots">
+      <button onclick="setFrame(1)" class="dot active">1</button>
+      <button onclick="setFrame(2)" class="dot">2</button>
+      <button onclick="setFrame(3)" class="dot">3</button>
+    </div>
+
+    <!-- 촬영 버튼 -->
+    <button class="shutter-btn" onclick="takePhoto()">
+      📷
+    </button>
+  </div>
+  </div>
+</div>
+
+<!-- 사진 미리보기 모달 -->
+<div id="photoPreview" style="display:none;">
+  <div class="preview-bg" onclick="closePreview()"></div>
+  <div class="preview-content">
+    <button class="preview-close" onclick="closePreview()">✕</button>
+    <img id="previewImg" src="" alt="촬영된 사진">
+    <button class="save-btn" onclick="savePhoto()">💾 save</button>
+  </div>
+</div>
+
+<!-- 클릭 소리 -->
+<audio id="clickSound" preload="auto">
+  <source src="sounds/click_ultrafast.wav" type="audio/wav">
+</audio>
+
+<!-- 배경 음악 -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="sounds/1.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>
